@@ -41,9 +41,7 @@ public class FootSoldierEnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < enemyCountPerWave; i++)
         {
-            Enemy enemy = FootSoldierEnemyPooler.Instance.Pool.Get();
 
-            enemy.SetPosition(outOfBoundUp + Vector3.right * Random.Range(-0.48f, 0.48f) * (cam.orthographicSize -3.0f));
         }
 
     }

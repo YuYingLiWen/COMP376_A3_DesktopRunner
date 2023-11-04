@@ -19,10 +19,8 @@ public class GameManager : MonoBehaviour
 
     public bool HasWon = false;
 
-    public PlayerDataModifier playerModifier;
-
     // Game Pause
-    private enum GameState { PLAY, PAUSED, MAIN_MENU, CHAPTER1, CHAPTER2, CREDITS };
+    private enum GameState { PLAY, PAUSED, MAIN_MENU, CHAPTER1, CREDITS };
     private GameState currentGameState = GameState.MAIN_MENU;
 
     public Action OnGamePause;

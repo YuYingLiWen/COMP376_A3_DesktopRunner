@@ -26,8 +26,6 @@ public class Player : MonoBehaviour, IActor
 
     private void Awake()
     {
-        health = GetComponent<Health>();
-
         coll = GetComponent<CircleCollider2D>();
 
         fireSFX = GetComponent<AudioSource>();
@@ -44,15 +42,6 @@ public class Player : MonoBehaviour, IActor
     private void Start()
     {
         inputSystem.OnFire.performed += HandleFire;
-
-
-        //Add modifiers
-        PlayerDataModifier mods = GameManager.GetInstance().playerModifier;
-
-        health.SetPoints(healthPoint + mods.hp);
-        attackPoints += mods.attack;
-        firingAngle += ((float)mods.spread / 2.0f);
-        reload.ReloadTime -= mods.speed;
     }
 
     private void OnDisable()
@@ -111,9 +100,7 @@ public class Player : MonoBehaviour, IActor
         {
             if (collider.CompareTag("Enemy"))
             {
-                var enemy = collider.GetComponent<Enemy>();
 
-                enemy.TakeDamage(attackPoints, pointer.point, transform.position);
 
                 trail.SetPositions(rifle.position, pointer.point);
             }
@@ -161,7 +148,6 @@ public class Player : MonoBehaviour, IActor
     void debugTAke()
     {
         health.TakeDamage(1);
-        Debug.Log(health.GetPoints());
         hpBar.fillAmount = health.GetHealthPercent();
 
     }
