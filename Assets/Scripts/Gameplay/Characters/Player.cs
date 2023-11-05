@@ -1,15 +1,13 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour, IActor
+public class Player : MonoBehaviour
 {
     [SerializeField] private int healthPoint = 10;
     [SerializeField] private int attackPoints = 5; // Damage per shot fired
 
     [SerializeField] private Health health;
-
-    [SerializeField] private GameInputSystem inputSystem;
 
     [SerializeField] private Transform rifle;
     [SerializeField] private AimPoint aimPoint;
@@ -33,35 +31,18 @@ public class Player : MonoBehaviour, IActor
 
     private void OnEnable()
     {
-        inputSystem.AimJoystick.OnHoldingStart += HandleHoldingStart;
-        inputSystem.AimJoystick.OnHoldingStop += HandleHoldingStop;
-
-        inputSystem.Fire.onClick.AddListener(Fire);
     }
 
     private void Start()
     {
-        inputSystem.OnFire.performed += HandleFire;
     }
 
     private void OnDisable()
     {
-        inputSystem.Fire.onClick.RemoveListener(Fire);
-
-        inputSystem.AimJoystick.OnHoldingStart -= HandleHoldingStart;
-        inputSystem.AimJoystick.OnHoldingStop -= HandleHoldingStop;
     }
 
     void Update()
     {
-        UpdateCover();
-    }
-
-
-
-    void HandleFire(InputAction.CallbackContext context)
-    {
-        Fire();
     }
 
     [ContextMenu("Fire()")]
@@ -107,43 +88,6 @@ public class Player : MonoBehaviour, IActor
         }
     }
 
-    private void HandleHoldingStop()
-    {
-        aimPoint.gameObject.SetActive(false);
-        aimPoint.SetRectPosition(transform.position);
-
-        Cover();
-    }
-
-    private void HandleHoldingStart()
-    {
-        aimPoint.gameObject.SetActive(true);
-        aimPoint.SetRectPosition(transform.position);
-
-        Uncover();
-    }
-
-    private void UpdateCover()
-    {
-        if (HasCover) return;
-
-        aimPoint.Translate(inputSystem.MovementAxis(), in aimSpeed);
-
-        transform.up = (Vector3)aimPoint.WorldPoint - transform.position;
-    }
-
-    // Player is behind some cover to mitigate damage
-    void Cover()
-    {
-        coll.enabled = false;
-    }
-
-    // Player is in the open; Player takes full damage
-    void Uncover()
-    {
-        coll.enabled = true;
-    }
-
     [ContextMenu("Take DAmage")]
     void debugTAke()
     {
@@ -173,5 +117,29 @@ public class Player : MonoBehaviour, IActor
         return transform;
     }
 
-    bool HasCover => !coll.enabled;
+
+    private IEnumerator SpeedBoostRoutine()
+    {
+        yield return null;
+    }
+
+    private IEnumerator InvincibilityRoutine()
+    {
+        yield break;
+    }
+
+    private IEnumerator InfiniteAmmoRoutiine()
+    {
+        yield break;
+    }
+
+    private IEnumerator FlyRoutine() 
+    { 
+        yield break;
+    }
+
+    private IEnumerator MoreLightRoutine()
+    {
+        yield break;
+    }
 }
