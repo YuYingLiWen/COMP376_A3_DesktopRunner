@@ -82,7 +82,7 @@ SpriteRenderer:
   m_Size: {x: 0.25, y: 3.17}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &3149832380951742323
@@ -197,7 +197,7 @@ SpriteRenderer:
   m_Size: {x: 1.86, y: 2.02}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8336134510715377847
@@ -213,7 +213,6 @@ GameObject:
   - component: {fileID: 1990853062531448797}
   - component: {fileID: 8018822931791969921}
   - component: {fileID: 3001351204702331683}
-  - component: {fileID: 8437704030487932338}
   - component: {fileID: 766129426971745063}
   m_Layer: 6
   m_Name: Player
@@ -252,15 +251,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoint: 10
-  attackPoints: 5
-  health: {fileID: 0}
-  inputSystem: {fileID: 0}
-  rifle: {fileID: 2214720786104059796}
-  aimPoint: {fileID: 0}
-  firingAngle: 0.5
-  aimSpeed: 1000
-  reload: {fileID: 0}
   hpBar: {fileID: 0}
+  head: {fileID: 0}
+  moveSpeed: 3
 --- !u!212 &1990853062531448797
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -310,7 +303,7 @@ SpriteRenderer:
   m_Size: {x: 1.58, y: 1.58}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!58 &8018822931791969921
@@ -376,18 +369,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8437704030487932338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8336134510715377847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af87e5dc9b0227d4aad919d42e0ec2f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &766129426971745063
 AudioSource:
   m_ObjectHideFlags: 0

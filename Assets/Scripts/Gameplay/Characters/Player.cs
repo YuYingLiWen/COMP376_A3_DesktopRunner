@@ -2,45 +2,34 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public sealed class Player : MonoBehaviour
 {
-    [SerializeField] private int healthPoint = 10;
-    [SerializeField] private int attackPoints = 5; // Damage per shot fired
+    [SerializeField] int healthPoint = 10;
 
-    [SerializeField] private Health health;
+    [SerializeField] Health health;
 
-    [SerializeField] private Transform rifle;
-    [SerializeField] private AimPoint aimPoint;
+    [SerializeField] Image hpBar;
 
-    [SerializeField] private float firingAngle = 0.5f;
-    [SerializeField] private float aimSpeed = 3.0f;
+    [SerializeField] Transform head;
 
-    [SerializeField] private Reload reload;
+     Rigidbody rb;
 
-    [SerializeField] private Image hpBar;
 
-    [SerializeField] private Transform head;
-
-    private Rigidbody rb;
-
-    private AudioSource fireSFX;
-
-    private void Awake()
+    void Awake()
     {
-        fireSFX = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
     }
 
-    private void Start()
+    void Start()
     {
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
     }
 
@@ -70,47 +59,7 @@ public class Player : MonoBehaviour
     }
 
     [ContextMenu("Fire()")]
-    void Fire()
-    {
-        if (!reload.CanFire) return;
-
-        fireSFX.Play();
-        reload.OnFire();// UI image bullet;
-
-        Vector2 aimCircle = Random.insideUnitCircle * firingAngle;
-
-        // Check if distance is too close to player 
-        float aimDistance = (aimCircle + aimPoint.WorldPoint - (Vector2)transform.position).magnitude;
-        if (aimDistance <= 1.0f) return; // Too close to self
-
-        RaycastHit2D pointer = aimPoint.Raycast(transform.position, aimCircle);  //TODO: Check Layer Mask
-
-        // Check if hit anything
-        Collider2D collider = pointer.collider;
-
-        var trail = ProjectileTrailPooler.Instance.Pool.Get();
-
-        if (!collider)
-        {
-            if (UnityEngine.Random.Range(0.0f, 1.0f) <= 0.8f) // 80% chance to shoot to shoot dirt
-            {
-                trail.SetPositions(rifle.position, aimPoint.WorldPoint + aimCircle);
-            }
-            else // WildShot 20% chance
-            {
-                trail.SetWildShot(rifle.position, transform.up, aimCircle);
-            }
-        }
-        else
-        {
-            if (collider.CompareTag("Enemy"))
-            {
-
-
-                trail.SetPositions(rifle.position, pointer.point);
-            }
-        }
-    }
+    
 
     public void TakeDamage(int damage)
     {
@@ -134,30 +83,30 @@ public class Player : MonoBehaviour
     }
 
 
-    private IEnumerator SpeedBoostRoutine()
+    IEnumerator SpeedBoostRoutine()
     {
         yield return null;
     }
 
-    private IEnumerator InvincibilityRoutine()
+    IEnumerator InvincibilityRoutine()
     {
         yield break;
     }
 
-    private IEnumerator InfiniteAmmoRoutiine()
+    IEnumerator InfiniteAmmoRoutiine()
     {
         yield break;
     }
 
-    private IEnumerator FlyRoutine() 
+    IEnumerator FlyRoutine() 
     { 
         yield break;
     }
 
-    private IEnumerator MoreLightRoutine()
+    IEnumerator HealthRegenRoutine()
     {
         yield break;
     }
 
-    [SerializeField] private float moveSpeed = 3.0f;
+    [SerializeField] float moveSpeed = 3.0f;
 }

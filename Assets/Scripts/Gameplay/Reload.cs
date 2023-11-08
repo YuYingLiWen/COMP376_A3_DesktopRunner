@@ -2,15 +2,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Reload : MonoBehaviour
+public sealed class Reload : MonoBehaviour
 {
     [SerializeField] private GameObject[] bullets;
     [SerializeField] private Image reload;
 
-    const int count = 5;
-    int currentBullet = 5;
+    const int count = 45;
+    int currentBullet = 45;
 
-    public bool canFire = true;
+    [SerializeField] bool canFire = true;
     public float ReloadTime = 3.0f;
     private float elapsedReloadTime = 0.0f;
 
@@ -52,5 +52,4 @@ public class Reload : MonoBehaviour
         reload.fillAmount = 1.0f;
         foreach(GameObject obj in bullets) obj.SetActive(true);
     }
-
 }

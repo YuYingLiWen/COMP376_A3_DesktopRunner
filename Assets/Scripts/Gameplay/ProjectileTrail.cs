@@ -27,14 +27,8 @@ public class ProjectileTrail : MonoBehaviour
 
     public void SetPositions(Vector3 start, Vector3 end)
     {
-        line.SetPosition(0, start - Vector3.forward);
-        line.SetPosition(1, end - Vector3.forward);
-    }
-
-    public void SetWildShot(Vector3 start, Vector3 direction, Vector3 aimCircle)
-    {
-        line.SetPosition(0, start - Vector3.forward);
-        line.SetPosition(1, direction * outOfView + aimCircle - Vector3.forward);
+        line.SetPosition(0, start);
+        line.SetPosition(1, end );
     }
 
     public void ResetPositions()
