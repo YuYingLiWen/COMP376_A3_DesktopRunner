@@ -69,6 +69,7 @@ public sealed class Gun : MonoBehaviour
 
             if (hit.collider.CompareTag("Enemy"))
             {
+                hit.transform.GetComponent<Ghost>().TakeDamage(1);
             }
         }
         else
