@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public sealed class Player : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] int healthPoint = 10;
 
@@ -14,6 +14,18 @@ public sealed class Player : MonoBehaviour
 
      Rigidbody rb;
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            //Instand Death
+            Debug.Log("Instant Death");
+        }
+        else if (other.CompareTag("Spike"))
+        {
+            TakeDamage(1);
+        }
+    }
 
     void Awake()
     {
@@ -29,10 +41,6 @@ public sealed class Player : MonoBehaviour
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void OnDisable()
-    {
-    }
-
     void Update()
     {
         float key_x = Input.GetAxis("Horizontal");
@@ -46,20 +54,13 @@ public sealed class Player : MonoBehaviour
 
         Vector3 direction = Vector3.zero;
 
-        if (key_x != 0.0f)
-            //rb.MovePosition(rb.position + transform.right *moveSpeed* key_x * Time.deltaTime);
-            direction += transform.right * key_x;
-        if(key_y != 0.0f)
-            
-            //rb.MovePosition(rb.position + transform.forward *moveSpeed *  key_y * Time.deltaTime);
+        if (key_x != 0.0f) direction += transform.right * key_x;
+        if (key_y != 0.0f) direction += transform.forward * key_y;
 
-         direction += transform.forward * key_y;
+        if (Input.GetKeyDown(KeyCode.Space)) rb.AddForce(Vector3.up * 5.0f, ForceMode.Impulse);
 
         rb.MovePosition(rb.position + direction.normalized * moveSpeed * Time.deltaTime);//= direction.normalized * moveSpeed;
     }
-
-    [ContextMenu("Fire()")]
-    
 
     public void TakeDamage(int damage)
     {
@@ -75,11 +76,6 @@ public sealed class Player : MonoBehaviour
         GameObject blood = BloodPooler.Instance.Pool.Get();
         blood.transform.up = at - up;
         blood.transform.position = at;
-    }
-
-    public Transform GetTransform()
-    {
-        return transform;
     }
 
 

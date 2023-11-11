@@ -46,12 +46,13 @@ public sealed class Ghost : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return waitForFlip;
             rend.flipX = !rend.flipX;
         }
     }
 
+    WaitForSeconds waitForFlip = new WaitForSeconds(0.5f);
     private static Transform player = null;
-    private static float speed = 0.75f;
+    private static float speed = 1.0f;
 
 }

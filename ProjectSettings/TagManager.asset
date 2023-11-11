@@ -8,6 +8,9 @@ TagManager:
   - Despawn
   - Sandbag
   - Ally
+  - Spike
+  - Regen
+  - BulletMode
   layers:
   - Default
   - TransparentFX
@@ -15,12 +18,12 @@ TagManager:
   - 
   - Water
   - UI
-  - Allies
+  - 
   - Level
   - Despawn
   - Enemies
-  - FieldObjects
-  - Trench
+  - 
+  - 
   - 
   - 
   - 
