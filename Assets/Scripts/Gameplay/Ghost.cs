@@ -1,14 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public sealed class Ghost : MonoBehaviour
 {
     Health health;
-    Renderer rend;
+    SpriteRenderer rend;
 
     private void Awake()
     {
-        rend = GetComponentInChildren<Renderer>();
+        rend = GetComponentInChildren<SpriteRenderer>();
 
         if(!player)
             player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -45,8 +46,8 @@ public sealed class Ghost : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(0.1f);
-            rend.material.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), 1.0f);
+            yield return new WaitForSeconds(0.5f);
+            rend.flipX = !rend.flipX;
         }
     }
 
