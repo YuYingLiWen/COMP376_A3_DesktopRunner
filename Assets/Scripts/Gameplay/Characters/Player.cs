@@ -41,25 +41,28 @@ public class Player : MonoBehaviour
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void Update()
-    {
-        float key_x = Input.GetAxis("Horizontal");
-        float key_y = Input.GetAxis("Vertical");
 
+    private void Update()
+    {
         float mouse_x = Input.GetAxis("Mouse X");
         float mouse_y = Input.GetAxis("Mouse Y");
 
         transform.Rotate(Vector3.up * mouse_x * Time.deltaTime * 100.0f);
         head.Rotate(Vector3.right * -mouse_y * Time.deltaTime * 100.0f);
 
+        if (Input.GetKeyDown(KeyCode.Space)) rb.AddForce(Vector3.up * 5.0f, ForceMode.Impulse);
+
+        float key_x = Input.GetAxis("Horizontal");
+        float key_y = Input.GetAxis("Vertical");
+
         Vector3 direction = Vector3.zero;
 
         if (key_x != 0.0f) direction += transform.right * key_x;
         if (key_y != 0.0f) direction += transform.forward * key_y;
 
-        if (Input.GetKeyDown(KeyCode.Space)) rb.AddForce(Vector3.up * 5.0f, ForceMode.Impulse);
 
-        rb.MovePosition(rb.position + direction.normalized * moveSpeed * Time.deltaTime);//= direction.normalized * moveSpeed;
+        rb.AddForce(direction.normalized * moveSpeed);
+
     }
 
     public void TakeDamage(int damage)
@@ -105,4 +108,5 @@ public class Player : MonoBehaviour
     }
 
     [SerializeField] float moveSpeed = 3.0f;
+
 }

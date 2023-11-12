@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3036404476333286638}
   - component: {fileID: 73383245827076941}
   m_Layer: 0
-  m_Name: Bear
+  m_Name: BearChaser
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
