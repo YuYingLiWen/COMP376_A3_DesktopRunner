@@ -2,9 +2,16 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    public float powerUpDuration = 10.0f;  
-    public float speedMultiplier = 2.0f;   
-    public GameObject pickupEffect;        
+    static Transform player;
+
+    float seed ;
+
+    private void Awake()
+    {
+        if (!player) player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        seed = Random.Range(0.0f, 1.0f);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,4 +21,13 @@ public class PowerUp : MonoBehaviour
         }
     }
 
+
+    private void Update()
+    {
+        float up = Mathf.Sin(Time.time + seed);
+
+        transform.position += Vector3.up * up * Time.deltaTime;
+
+        transform.LookAt(player);
+    }
 }

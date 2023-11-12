@@ -10,7 +10,11 @@ TagManager:
   - Ally
   - Spike
   - Regen
-  - BulletMode
+  - Invincible
+  - UnlimitedBullet
+  - Speed
+  - Fly
+  - GunUpgrade
   layers:
   - Default
   - TransparentFX
