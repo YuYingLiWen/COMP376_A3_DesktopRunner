@@ -61,7 +61,7 @@ public sealed class Gun : MonoBehaviour
         Ray ray = new(cam.position, cam.forward + aimCircle);
 
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 5.0f);
-        if (Physics.Raycast(ray,out RaycastHit hit, float.MaxValue))
+        if (Physics.Raycast(ray,out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
         {
             Debug.Log(hit.collider.name);
 

@@ -37,6 +37,7 @@ public sealed class Reload : MonoBehaviour
         if (elapsedReloadTime >= ReloadTime)
         {
             OnReloaded();
+            reload.fillAmount = 0.0f;
             return;
         }
 

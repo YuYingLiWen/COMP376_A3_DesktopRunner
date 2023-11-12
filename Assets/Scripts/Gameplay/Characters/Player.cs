@@ -62,7 +62,6 @@ public class Player : MonoBehaviour
 
 
         rb.AddForce(direction.normalized * moveSpeed);
-
     }
 
     public void TakeDamage(int damage)

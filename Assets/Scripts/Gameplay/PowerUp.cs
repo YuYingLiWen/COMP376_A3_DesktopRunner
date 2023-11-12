@@ -26,7 +26,7 @@ public class PowerUp : MonoBehaviour
     {
         float up = Mathf.Sin(Time.time + seed);
 
-        transform.position += Vector3.up * up * Time.deltaTime;
+        transform.position += Vector3.up * up * 0.5f * Time.deltaTime;
 
         transform.LookAt(player);
     }

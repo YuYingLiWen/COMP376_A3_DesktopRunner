@@ -1,18 +1,17 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public sealed class Ghost : MonoBehaviour
 {
     Health health;
-    SpriteRenderer rend;
+    [SerializeField] SpriteRenderer rend;
 
     private void Awake()
     {
-        rend = GetComponentInChildren<SpriteRenderer>();
-
         if(!player)
             player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        rb = GetComponent<Rigidbody>();
     }
 
     private void OnEnable()
@@ -32,6 +31,7 @@ public sealed class Ghost : MonoBehaviour
 
         transform.LookAt(player);
 
+        //rb.AddForce(dir.normalized * speed,ForceMode.Force);
         transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
     }
 
@@ -54,5 +54,5 @@ public sealed class Ghost : MonoBehaviour
     WaitForSeconds waitForFlip = new WaitForSeconds(0.5f);
     private static Transform player = null;
     private static float speed = 1.0f;
-
+    Rigidbody rb;
 }
