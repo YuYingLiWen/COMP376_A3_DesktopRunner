@@ -16,6 +16,7 @@ TagManager:
   - Bullets
   - Health
   - Pill
+  - Floor
   layers:
   - Default
   - TransparentFX

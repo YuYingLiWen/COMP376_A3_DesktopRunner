@@ -21,8 +21,11 @@ public sealed class Reload : MonoBehaviour
     {
         if (!canFire) return;
 
-        currentBullet -= 1;
-        bullets[currentBullet].SetActive(false);
+        if(!hasInfAmmo)
+        {
+            currentBullet -= 1;
+            bullets[currentBullet].SetActive(false);
+        }
 
         if(currentBullet == 0) canFire = false;
     }
@@ -84,6 +87,11 @@ public sealed class Reload : MonoBehaviour
         currentBullet = count;
     }
 
-    private bool hasUpgrade = false;
+    public void SetHasInfAmmo(bool state)
+    {
+        hasInfAmmo = state;
+    }
 
+    private bool hasUpgrade = false;
+    private bool hasInfAmmo = false;
 }

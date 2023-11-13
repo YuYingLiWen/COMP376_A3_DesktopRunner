@@ -44,5 +44,9 @@ public sealed class PowerUpUI : MonoBehaviour
         gameObject.SetActive(active);
     }
 
+    public void ResetTimer() => elapsedReloadTime = 0.0f;
+
+    public bool IsActive => gameObject.activeSelf;
+
     public Action OnComplete;
 }

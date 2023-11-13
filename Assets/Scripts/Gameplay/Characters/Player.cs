@@ -5,7 +5,6 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
-
     [SerializeField] Image hpBar;
     [SerializeField] Transform head;
 
@@ -20,7 +19,9 @@ public class Player : MonoBehaviour
         }
         else if (other.CompareTag("Fly"))
         {
-            fly.SetActive(true);   
+            canFly = true;
+            if (fly.IsActive) fly.ResetTimer();
+            else fly.SetActive(true);   
         }
         else if (other.CompareTag("Health"))
         {
@@ -28,15 +29,23 @@ public class Player : MonoBehaviour
         }
         else if (other.CompareTag("Shield"))
         {
-            invincibility.SetActive(true);
+            hasInvincibility = true;
+            if (invincibility.IsActive) invincibility.ResetTimer();
+            else invincibility.SetActive(hasInvincibility);
         }
         else if (other.CompareTag("Bullets"))
         {
-            infiniteAmmo.SetActive(true);
+            hasInfiniteAmmo = true;
+            reload.SetHasInfAmmo(hasInfiniteAmmo);
+
+            if (infiniteAmmo.IsActive) infiniteAmmo.ResetTimer();
+            else infiniteAmmo.SetActive(hasInfiniteAmmo);
         }
         else if (other.CompareTag("Speed"))
         {
-            speedBoost.SetActive(true);
+            hasSpeedBoost = true;
+            if (speedBoost.IsActive) speedBoost.ResetTimer();
+            else speedBoost.SetActive(hasSpeedBoost);
         }
         else if (other.CompareTag("AmmoBox"))
         {
@@ -56,7 +65,11 @@ public class Player : MonoBehaviour
     {
         if(collision.collider.CompareTag("Spike"))
         {
-            TakeDamage(1);
+            if(!hasInvincibility) TakeDamage(1);
+        }
+        else if(collision.collider.CompareTag("Floor"))
+        {
+            canJump = true;
         }
     }
 
@@ -87,9 +100,21 @@ public class Player : MonoBehaviour
 
         rotation -= mouse_y * Time.deltaTime * 100.0f;
         rotation = Mathf.Clamp(rotation, -90.0f, 90.0f);
-        head.localEulerAngles = Vector3.right * rotation  ;
+        head.localEulerAngles = Vector3.right * rotation;
 
-        if (Input.GetKeyDown(KeyCode.Space)) rb.AddForce(Vector3.up * 5.0f, ForceMode.Impulse);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if(canFly) rb.AddForce(Vector3.up * 5.0f, ForceMode.Impulse);
+            else
+            {
+                if(canJump)
+                {
+                    canJump = false;
+                    rb.AddForce(Vector3.up * 5.0f, ForceMode.Impulse);
+                }
+            }
+        }
+            
 
         float key_x = Input.GetAxis("Horizontal");
         float key_y = Input.GetAxis("Vertical");
@@ -99,9 +124,8 @@ public class Player : MonoBehaviour
         if (key_x != 0.0f) direction += transform.right * key_x;
         if (key_y != 0.0f) direction += transform.forward * key_y;
 
-        rb.MovePosition(rb.position + direction.normalized * (moveSpeed + speedUpgrade) * Time.deltaTime);
-
-        //rb.AddForce(direction.normalized * (moveSpeed + speedUpgrade), ForceMode.Acceleration);
+        if(!speedBoost) rb.MovePosition(rb.position + direction.normalized * (moveSpeed + speedUpgrade) * Time.deltaTime);
+        else rb.MovePosition(rb.position + direction.normalized * (moveSpeed + speedUpgrade + 1.0f) * Time.deltaTime);
     }
 
     public void TakeDamage(int damage)
@@ -137,6 +161,7 @@ public class Player : MonoBehaviour
     {
         hasInfiniteAmmo = false;
         infiniteAmmo.SetActive(hasInfiniteAmmo);
+        reload.SetHasInfAmmo(hasInfiniteAmmo);
     }
 
     void HandleFly() 
@@ -170,6 +195,8 @@ public class Player : MonoBehaviour
     {
         upgradeText.text = $"UPGRADES\r\n-----------------\r\n\r\nAmmo: {ammoUpgrade}/3\r\n\r\nSpeed: {speedUpgrade}/3\r\n\r\nGun: {gunUpgrade}/3";
     }
+
+    bool canJump = true;
 
     [SerializeField] int healthPoint = 10;
     Health health;
