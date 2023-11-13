@@ -28,6 +28,6 @@ public class PowerUp : MonoBehaviour
 
         transform.position += Vector3.up * up * 0.5f * Time.deltaTime;
 
-        transform.LookAt(player);
+        transform.LookAt(player,Vector3.up);
     }
 }

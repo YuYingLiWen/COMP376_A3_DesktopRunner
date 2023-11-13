@@ -40,7 +40,6 @@ public class Player : MonoBehaviour
     {
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
-    float rotation = 0.0f;
     private void Update()
     {
         float mouse_x = Input.GetAxis("Mouse X");
@@ -108,5 +107,5 @@ public class Player : MonoBehaviour
     }
 
     [SerializeField] float moveSpeed = 3.0f;
-
+    float rotation = 0.0f;
 }

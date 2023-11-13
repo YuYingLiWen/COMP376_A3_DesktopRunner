@@ -22,6 +22,12 @@ public class PermanentUpgrade : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player")) gameObject.SetActive(false);
+        if(other.CompareTag("Player"))
+        {
+            gameObject.SetActive(false);
+        }
     }
+
+    bool hasTriggered = false;
+
 }
