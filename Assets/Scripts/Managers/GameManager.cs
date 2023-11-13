@@ -12,9 +12,8 @@ public class GameManager : MonoBehaviour
     private static GameManager instance = null;
     public static GameManager Instance => instance;
 
-    /// The following are serizlized for debugging purposes
-    [SerializeField] private SceneDirector sceneDirector = null;
-    [SerializeField] private AudioManager audioManager = null;
+    private SceneDirector sceneDirector = null;
+    private AudioManager audioManager = null;
 
     // Game Pause
     private enum GameState { PLAY, PAUSED, MAIN_MENU, CHAPTER1, CREDITS };
@@ -67,11 +66,27 @@ public class GameManager : MonoBehaviour
        
     }
 
+    [SerializeField] DifficultySO easy;
+    [SerializeField] DifficultySO medium;
+    [SerializeField] DifficultySO hard;
+    [SerializeField] DifficultySO debug;
+
+    public DifficultySO GetDifficultyData()
+    {
+        switch (this.difficulty)
+        {
+            case Difficulty.Easy:
+                return easy;
+            case Difficulty.Hard:
+                return hard;
+            case Difficulty.Medium:
+                return medium;
+            default:
+                return debug;
+        }
+    }
 
     public void SetDifficulty(Difficulty difficulty) => this.difficulty = difficulty;
-
-    public Difficulty GetDifficulty() => this.difficulty;
-
     public enum Difficulty { Easy, Hard, Medium};
     Difficulty difficulty = Difficulty.Easy;
 }

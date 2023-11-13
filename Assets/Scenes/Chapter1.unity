@@ -9922,6 +9922,7 @@ MonoBehaviour:
   hpBar: {fileID: 1379342136}
   head: {fileID: 296264041}
   healthPoint: 10
+  hpText: {fileID: 49912201}
   reload: {fileID: 651566116}
   gun: {fileID: 3469287838032264879}
   moveSpeed: 4

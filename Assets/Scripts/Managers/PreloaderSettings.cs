@@ -7,6 +7,5 @@ public class PreloaderSettings : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         Application.runInBackground = false;
-        Screen.orientation = ScreenOrientation.Portrait;
     }
 }
