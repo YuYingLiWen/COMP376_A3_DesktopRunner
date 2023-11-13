@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1552703055551433708}
+  - component: {fileID: 6233947543615363690}
+  - component: {fileID: 5681245236536755721}
   m_Layer: 0
   m_Name: Tunnel
   m_TagString: Untagged
@@ -34,6 +36,39 @@ Transform:
   - {fileID: 8272053589315487535}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6233947543615363690
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2325392701664831951}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9.165117, y: 6.3560176, z: 1.9738214}
+  m_Center: {x: -4.4994564, y: 3.013818, z: -1}
+--- !u!114 &5681245236536755721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2325392701664831951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11cef698d7af9c34594398d23d0b7440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6315475796742826928
 GameObject:
   m_ObjectHideFlags: 0

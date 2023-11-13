@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
         if (key_y != 0.0f) direction += transform.forward * key_y;
 
 
-        rb.AddForce(direction.normalized * moveSpeed);
+        rb.AddForce(direction.normalized * moveSpeed, ForceMode.Acceleration);
     }
 
     public void TakeDamage(int damage)

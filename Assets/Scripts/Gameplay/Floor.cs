@@ -16,7 +16,7 @@ public sealed class Floor : MonoBehaviour
             return;
         }
 
-        if (Random.Range(0.0f, 1.0f) < 1.07f)
+        if (Random.Range(0.0f, 1.0f) < 0.07f)
         {
             var obstacle = Instantiate(staticObstacles[Random.Range(0, staticObstacles.Length)]);
             obstacle.transform.parent = transform;
