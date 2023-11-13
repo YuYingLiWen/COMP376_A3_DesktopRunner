@@ -7,8 +7,10 @@ public sealed class Reload : MonoBehaviour
     [SerializeField] private GameObject[] bullets;
     [SerializeField] private Image reload;
 
-    const int count = 45;
-    int currentBullet = 45;
+    const int upgradedCount = 45;
+    const int normalCount = 15;
+
+    int currentBullet = 0;
 
     [SerializeField] bool canFire = true;
     public float ReloadTime = 3.0f;
@@ -23,6 +25,11 @@ public sealed class Reload : MonoBehaviour
         bullets[currentBullet].SetActive(false);
 
         if(currentBullet == 0) canFire = false;
+    }
+
+    private void OnEnable()
+    {
+        Activate(normalCount);
     }
 
     private void Update()
@@ -45,12 +52,38 @@ public sealed class Reload : MonoBehaviour
         elapsedReloadTime += Time.deltaTime;
     }
 
+    public void Upgrade()
+    {
+        hasUpgrade = true;
+    }
+
     void OnReloaded()
     {
         canFire = true;
         elapsedReloadTime = 0.0f;
-        currentBullet = count;
-        reload.fillAmount = 1.0f;
-        foreach(GameObject obj in bullets) obj.SetActive(true);
+
+        if(hasUpgrade)
+        {
+            reload.fillAmount = 1.0f;
+            Activate(upgradedCount);
+        }
+        else
+        {
+            reload.fillAmount = 1.0f;
+            Activate(normalCount);
+        }
     }
+
+    void Activate(int count)
+    {
+        for(int i = 0; i < count; i++)
+        {
+            bullets[i].SetActive(true);
+        }
+
+        currentBullet = count;
+    }
+
+    private bool hasUpgrade = false;
+
 }

@@ -1,15 +1,12 @@
-using System.Collections;
+
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] int healthPoint = 10;
-
-    [SerializeField] Health health;
 
     [SerializeField] Image hpBar;
-
     [SerializeField] Transform head;
 
      Rigidbody rb;
@@ -21,7 +18,43 @@ public class Player : MonoBehaviour
             //Instand Death
             Debug.Log("Instant Death");
         }
-        else if (other.CompareTag("Spike"))
+        else if (other.CompareTag("Fly"))
+        {
+            fly.SetActive(true);   
+        }
+        else if (other.CompareTag("Health"))
+        {
+            health.AddHealth(1);
+        }
+        else if (other.CompareTag("Shield"))
+        {
+            invincibility.SetActive(true);
+        }
+        else if (other.CompareTag("Bullets"))
+        {
+            infiniteAmmo.SetActive(true);
+        }
+        else if (other.CompareTag("Speed"))
+        {
+            speedBoost.SetActive(true);
+        }
+        else if (other.CompareTag("AmmoBox"))
+        {
+            UpgradeAmmo();
+        }
+        else if (other.CompareTag("Pill"))
+        {
+            UpgradeSpeed();
+        }
+        else if (other.CompareTag("Gun"))
+        {
+            UpgradeGun();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.CompareTag("Spike"))
         {
             TakeDamage(1);
         }
@@ -30,10 +63,15 @@ public class Player : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        health = new Health(healthPoint);
     }
 
     void OnEnable()
     {
+        infiniteAmmo.OnComplete += HandleInfiniteAmmo;
+        fly.OnComplete += HandleFly;
+        speedBoost.OnComplete += HandleSpeedBoost;
+        invincibility.OnComplete += HandleInvincibility;
     }
 
     void Start()
@@ -61,7 +99,9 @@ public class Player : MonoBehaviour
         if (key_x != 0.0f) direction += transform.right * key_x;
         if (key_y != 0.0f) direction += transform.forward * key_y;
 
-        rb.AddForce(direction.normalized * moveSpeed, ForceMode.Acceleration);
+        rb.MovePosition(rb.position + direction.normalized * (moveSpeed + speedUpgrade) * Time.deltaTime);
+
+        //rb.AddForce(direction.normalized * (moveSpeed + speedUpgrade), ForceMode.Acceleration);
     }
 
     public void TakeDamage(int damage)
@@ -81,31 +121,78 @@ public class Player : MonoBehaviour
     }
 
 
-    IEnumerator SpeedBoostRoutine()
+    void HandleSpeedBoost()
     {
-        yield return null;
+        hasSpeedBoost = false;
+        speedBoost.SetActive(hasSpeedBoost);
     }
 
-    IEnumerator InvincibilityRoutine()
+    void HandleInvincibility()
     {
-        yield break;
+        hasInvincibility = false;
+        invincibility.SetActive(hasInvincibility);
     }
 
-    IEnumerator InfiniteAmmoRoutiine()
+    void HandleInfiniteAmmo()
     {
-        yield break;
+        hasInfiniteAmmo = false;
+        infiniteAmmo.SetActive(hasInfiniteAmmo);
     }
 
-    IEnumerator FlyRoutine() 
+    void HandleFly() 
     { 
-        yield break;
+        canFly = false;
+        fly.SetActive(canFly);
     }
 
-    IEnumerator HealthRegenRoutine()
+    void UpgradeAmmo()
     {
-        yield break;
+        ammoUpgrade += 1;
+        if (ammoUpgrade >= 3) reload.Upgrade();
+        UpdateUpgradeText();
     }
+
+    void UpgradeSpeed()
+    {
+        if (speedUpgrade >= 3) return;
+        speedUpgrade += 1;
+        UpdateUpgradeText();
+    }
+
+    void UpgradeGun()
+    {
+        gunUpgrade += 1;
+        if (gunUpgrade >= 3) gun.Upgrade();
+        UpdateUpgradeText();
+    }
+
+    void UpdateUpgradeText()
+    {
+        upgradeText.text = $"UPGRADES\r\n-----------------\r\n\r\nAmmo: {ammoUpgrade}/3\r\n\r\nSpeed: {speedUpgrade}/3\r\n\r\nGun: {gunUpgrade}/3";
+    }
+
+    [SerializeField] int healthPoint = 10;
+    Health health;
+
+    [SerializeField] Reload reload;
+    [SerializeField] Gun gun;
 
     [SerializeField] float moveSpeed = 3.0f;
     float rotation = 0.0f;
+
+    [SerializeField] PowerUpUI infiniteAmmo;
+    [SerializeField] PowerUpUI fly;
+    [SerializeField] PowerUpUI speedBoost;
+    [SerializeField] PowerUpUI invincibility;
+
+    bool hasInfiniteAmmo = false;
+    bool canFly = false;
+    bool hasSpeedBoost = false;
+    bool hasInvincibility = false;
+
+    int gunUpgrade = 0;
+    int speedUpgrade = 0;
+    int ammoUpgrade = 0;
+
+    [SerializeField] TMP_Text upgradeText;
 }

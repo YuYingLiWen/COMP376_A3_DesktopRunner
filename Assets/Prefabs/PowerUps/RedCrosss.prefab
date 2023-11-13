@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3666967444415904831}
   m_Layer: 0
   m_Name: RedCrosss
-  m_TagString: Untagged
+  m_TagString: Health
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

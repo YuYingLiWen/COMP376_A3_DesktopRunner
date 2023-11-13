@@ -27,13 +27,14 @@ public sealed class Gun : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             isHolding = true;
+            if(!canHold) Fire();
         }
         else if(Input.GetKeyUp(KeyCode.Mouse0))
         {
             isHolding= false;
         }
 
-        if(isHolding)
+        if(isHolding && canHold)
         {
             if (elapsedTime >= delayPerShot)
             {
@@ -41,7 +42,7 @@ public sealed class Gun : MonoBehaviour
                 elapsedTime = 0.0f;
             }
 
-                elapsedTime += Time.deltaTime;
+            elapsedTime += Time.deltaTime;
         }
     }
 
@@ -78,6 +79,12 @@ public sealed class Gun : MonoBehaviour
         }
     }
 
+    public void Upgrade()
+    {
+        canHold = true;
+    }
+
+    private bool canHold = false;
 
     // Cache
     Transform cam;

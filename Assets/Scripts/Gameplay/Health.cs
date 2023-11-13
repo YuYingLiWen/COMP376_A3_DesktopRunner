@@ -14,4 +14,5 @@ public class Health
     public float GetHealthPercent() => (float)points / (float)maxHealth;
     public bool IsAlive() => points > 0;
     public void Reset() => points = maxHealth;
+    public void AddHealth(int points) => this.points += points;
 }

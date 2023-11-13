@@ -6,15 +6,16 @@ TagManager:
   tags:
   - Enemy
   - Despawn
-  - Sandbag
-  - Ally
   - Spike
-  - Regen
   - Invincible
-  - UnlimitedBullet
   - Speed
   - Fly
-  - GunUpgrade
+  - AmmoBox
+  - Gun
+  - Shield
+  - Bullets
+  - Health
+  - Pill
   layers:
   - Default
   - TransparentFX
