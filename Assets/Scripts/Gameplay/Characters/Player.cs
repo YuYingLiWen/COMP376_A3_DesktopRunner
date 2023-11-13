@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
         else if (other.CompareTag("Health"))
         {
             health.AddHealth(1);
+            UpdateHealthUI();
         }
         else if (other.CompareTag("Shield"))
         {
@@ -65,11 +66,26 @@ public class Player : MonoBehaviour
     {
         if(collision.collider.CompareTag("Spike"))
         {
-            if(!hasInvincibility) TakeDamage(1);
+            if(!hasInvincibility)
+            {
+                TakeDamage(1);
+            }
         }
-        else if(collision.collider.CompareTag("Floor"))
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.CompareTag("Floor"))
         {
             canJump = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Floor"))
+        {
+            canJump = false;
         }
     }
 
@@ -77,6 +93,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         health = new Health(healthPoint);
+        UpdateHealthUI();
     }
 
     void OnEnable()
@@ -131,8 +148,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health.TakeDamage(damage);
-
-        hpBar.fillAmount = health.GetHealthPercent();
+        UpdateHealthUI();
 
         if (!health.IsAlive()) FindAnyObjectByType<LevelManager>().GameOver();
     }
@@ -196,9 +212,16 @@ public class Player : MonoBehaviour
         upgradeText.text = $"UPGRADES\r\n-----------------\r\n\r\nAmmo: {ammoUpgrade}/3\r\n\r\nSpeed: {speedUpgrade}/3\r\n\r\nGun: {gunUpgrade}/3";
     }
 
+    void UpdateHealthUI()
+    {
+        hpText.text = $"HP {health.Points} / {health.MaxPoints}";
+        hpBar.fillAmount = health.GetHealthPercent();
+    }
+
     bool canJump = true;
 
     [SerializeField] int healthPoint = 10;
+    [SerializeField] TMP_Text hpText;
     Health health;
 
     [SerializeField] Reload reload;
