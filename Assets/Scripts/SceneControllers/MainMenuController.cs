@@ -17,6 +17,27 @@ public class MainMenuController : MonoBehaviour
         sceneDirector.Load(SceneDirector.SceneNames.CHAPTER1_SCENE, true);
     }
 
+    public void PlayHard()
+    {
+        GameManager.Instance.SetDifficulty(GameManager.Difficulty.Hard);
+
+        LoadLevel1();
+    }
+
+    public void PlayMedium()
+    {
+        GameManager.Instance.SetDifficulty(GameManager.Difficulty.Medium);
+
+        LoadLevel1();
+    }
+
+    public void PlayEasy()
+    {
+        GameManager.Instance.SetDifficulty(GameManager.Difficulty.Easy);
+
+        LoadLevel1();
+    }
+
     public void Quit()
     {
         Application.Quit();

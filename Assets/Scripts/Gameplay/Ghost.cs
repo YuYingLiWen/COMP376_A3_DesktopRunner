@@ -21,7 +21,7 @@ public sealed class Ghost : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(ColorRoutine());
+        StartCoroutine(FlipRoutine());
     }
 
     private void Update()
@@ -42,7 +42,7 @@ public sealed class Ghost : MonoBehaviour
         if (!health.IsAlive()) GhostPooler.Instance.Pool.Release(this);// Back to pooler
     }
 
-    IEnumerator ColorRoutine()
+    IEnumerator FlipRoutine()
     {
         while(true)
         {

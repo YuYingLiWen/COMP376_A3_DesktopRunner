@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        gameManager = GameManager.GetInstance();
+        gameManager = GameManager.Instance;
         if (!gameManager)
         {
             Debug.LogError("Missing Game Manager", gameObject);
@@ -31,7 +31,6 @@ public class LevelManager : MonoBehaviour
     {
         if (debugMode) return;
         OnGameOver += gameManager.HandleGameOver;
-        OnGameWon += gameManager.HandleGameWon;
     }
 
     private void OnDisable()
@@ -39,19 +38,11 @@ public class LevelManager : MonoBehaviour
         if (debugMode) return;
 
         OnGameOver -= gameManager.HandleGameOver;
-        OnGameWon -= gameManager.HandleGameWon;
     }
 
-    private void GameWon()
-    {
-        OnGameWon?.Invoke();
-        GameManager.GetInstance().HasWon = true;
-        SceneDirector.GetInstance().Load(SceneDirector.SceneNames.CREDITS_SCENE, true);
-    }
     public void GameOver()
     {
         OnGameOver?.Invoke();
-        GameManager.GetInstance().HasWon = false;
         SceneDirector.GetInstance().Load(SceneDirector.SceneNames.CREDITS_SCENE, true);
     }
 

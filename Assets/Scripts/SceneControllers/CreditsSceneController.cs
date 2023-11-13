@@ -8,9 +8,6 @@ public class CreditsSceneController : MonoBehaviour
     [SerializeField] private float transitionTime = 3.0f;
     private void OnEnable()
     {
-        if (GameManager.GetInstance().HasWon) winlosetext.text = "You've satisfied your kill quota and have shipped back home.";
-        else winlosetext.text = "You have become one with the battlefield.";
-
         StartCoroutine(DisplayRoutine());
     }
 
