@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62e21871a31d7d45bab9f782112ebd9, type: 3}
   m_Name: Medium
   m_EditorClassIdentifier: 
-  holeChance: 10
+  holeChance: 15
   obsctacleChance: 10
   powerUpChance: 10
   upgradeChance: 10
-  bearChance: 7
+  bearChance: 15

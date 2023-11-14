@@ -45,30 +45,39 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (currentGameState == GameState.MAIN_MENU) return; 
-        
-        if (Input.GetKeyDown(KeyCode.Escape)) Pause();
+        if (currentGameState == GameState.MAIN_MENU) return;
+
+        if (playerIsDead) return;
+        if (Input.GetKeyDown(KeyCode.Escape)) TogglePause();
+    }
+
+    private void TogglePause()
+    {
+        if (isPaused) // if paused
+        {
+            Unpause();
+        }
+        else // Not paused
+        {
+            Pause();
+        }
+        isPaused = !isPaused;
     }
 
     private void Pause()
     {
-        if (isPaused) // if paused
-        {
-            //Unpause
-            Cursor.lockState = CursorLockMode.Locked;
-            Time.timeScale = 1.0f;
-            OnGameUnpause?.Invoke();
-            currentGameState = GameState.LEVEL;
-        }
-        else // Not paused
-        {
-            //Pause
-            Cursor.lockState = CursorLockMode.None;
-            Time.timeScale = 0.0f;
-            OnGamePause?.Invoke();
-            currentGameState = GameState.PAUSED;
-        }
-        isPaused = !isPaused;
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0.0f;
+        OnGamePause?.Invoke();
+        currentGameState = GameState.PAUSED;
+    }
+
+    public void Unpause()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1.0f;
+        OnGameUnpause?.Invoke();
+        currentGameState = GameState.LEVEL;
     }
 
     public void HandleLevelSceneActivation(GameState state)
@@ -76,6 +85,7 @@ public class GameManager : MonoBehaviour
         if (state != GameState.LEVEL) return;
 
         currentGameState = GameState.LEVEL;
+        playerIsDead = false;
     }
 
     public void HandleMainMenuSceneActivation(GameState state)
@@ -85,6 +95,7 @@ public class GameManager : MonoBehaviour
         currentGameState = GameState.MAIN_MENU;
 
         audioManager.Play(state);
+        Time.timeScale = 1.0f;
     }
 
     [SerializeField] DifficultySO easy;
@@ -107,8 +118,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    bool isPaused = false;
+    public void PlayerIsDead()
+    {
+        playerIsDead = true;
+        currentGameState = GameState.PAUSED;
+    }
 
+    bool isPaused = false;
+    bool playerIsDead = false;
 
     public void SetDifficulty(Difficulty difficulty) => this.difficulty = difficulty;
     public enum Difficulty { Easy, Hard, Medium};

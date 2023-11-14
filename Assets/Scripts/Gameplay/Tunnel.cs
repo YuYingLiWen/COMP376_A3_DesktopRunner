@@ -3,7 +3,14 @@ using UnityEngine;
 
 public class Tunnel : MonoBehaviour
 {
+    LevelManager levelManager;
     [SerializeField] Transform anchor;
+
+    private void Awake()
+    {
+        if (!levelManager) levelManager = FindAnyObjectByType<LevelManager>();    
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (hasTriggered) return;
@@ -11,7 +18,7 @@ public class Tunnel : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             hasTriggered = true;
-            LevelManager.Instance.SpawnNextTunnel(anchor.position);
+            levelManager.SpawnNextTunnel(anchor.position);
         }
     }
 

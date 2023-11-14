@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
 
      Rigidbody rb;
 
+    LevelManager levelManager;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Fly"))
@@ -63,13 +65,16 @@ public class Player : MonoBehaviour
         {
             if(!hasInvincibility)
             {
-                TakeDamage(1);
+                TakeDamage(4);
             }
         }
         else if (collision.collider.CompareTag("Enemy"))
         {
             //Instand Death
             Debug.Log("Instant Death");
+            health.InstantDeath();
+            UpdateHealthUI();
+            levelManager.GameOver();
         }
     }
 
@@ -94,6 +99,8 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         health = new Health(healthPoint);
         UpdateHealthUI();
+
+        levelManager = FindAnyObjectByType<LevelManager>();
     }
 
     void OnEnable()
@@ -153,7 +160,7 @@ public class Player : MonoBehaviour
         health.TakeDamage(damage);
         UpdateHealthUI();
 
-        if (!health.IsAlive()) FindAnyObjectByType<LevelManager>().GameOver();
+        if (!health.IsAlive()) levelManager.GameOver();
     }
 
     public void SpawnBlood(Vector3 at, Vector3 up)
@@ -191,6 +198,7 @@ public class Player : MonoBehaviour
 
     void UpgradeAmmo()
     {
+        if (ammoUpgrade + 1 > 3) return;
         ammoUpgrade += 1;
         if (ammoUpgrade >= 3) reload.Upgrade();
         UpdateUpgradeText();
@@ -205,6 +213,7 @@ public class Player : MonoBehaviour
 
     void UpgradeGun()
     {
+        if (gunUpgrade + 1 > 3) return;
         gunUpgrade += 1;
         if (gunUpgrade >= 3) gun.Upgrade();
         UpdateUpgradeText();

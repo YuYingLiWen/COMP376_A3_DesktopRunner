@@ -58,11 +58,13 @@ public sealed class Gun : MonoBehaviour
         fireVFX.Play();
         reload.OnFire();// UI image bullet;
 
-        Vector3 aimCircle = Random.insideUnitCircle * angle;
+        //Vector3 aimCircle = Random.insideUnitCircle * angle;
 
         var trail = ProjectileTrailPooler.Instance.Pool.Get();
 
-        Ray ray = new(cam.position, cam.forward + aimCircle);
+        //Ray ray = new(cam.position, cam.forward + aimCircle);
+        Ray ray = new(cam.position, cam.forward );
+
 
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 5.0f);
         if (Physics.Raycast(ray,out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
@@ -80,7 +82,8 @@ public sealed class Gun : MonoBehaviour
         }
         else
         {
-            trail.SetPositions(rifle.position, cam.forward * distance + aimCircle);
+            //trail.SetPositions(rifle.position, cam.forward * distance + aimCircle);
+            trail.SetPositions(rifle.position, cam.forward * distance);
         }
     }
 

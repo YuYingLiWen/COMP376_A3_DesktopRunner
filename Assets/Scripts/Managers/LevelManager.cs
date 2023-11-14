@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -8,9 +7,6 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     private GameManager gameManager;
-
-    public Action OnGameOver;
-    public Action OnGameWon;
 
     public bool debugMode = false;
 
@@ -22,9 +18,13 @@ public class LevelManager : MonoBehaviour
             Debug.LogError("Missing Game Manager", gameObject);
             debugMode = true;
         }
+    }
 
-        if (!instance) instance = this;
-        else Debug.LogWarning("Multiple " + this.GetType().Name, this);
+    private void Start()
+    {
+
+        gameManager.Unpause();
+
     }
 
     private void OnEnable()
@@ -33,8 +33,17 @@ public class LevelManager : MonoBehaviour
 
         GameManager.Instance.OnGamePause += HandlePause;
         GameManager.Instance.OnGameUnpause += HandleUnpause;
+
     }
 
+    private void OnDisable()
+    {
+        if (debugMode) return;
+
+        GameManager.Instance.OnGamePause -= HandlePause;
+        GameManager.Instance.OnGameUnpause -= HandleUnpause;
+
+    }
 
     void HandlePause()
     {
@@ -49,9 +58,10 @@ public class LevelManager : MonoBehaviour
 
     public void GameOver()
     {
-        OnGameOver?.Invoke();
-
+        GameManager.Instance.PlayerIsDead();
         deathUI.SetActive(true);
+        Time.timeScale = 0.0f;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void SpawnNextTunnel(Vector3 anchor)
@@ -65,6 +75,11 @@ public class LevelManager : MonoBehaviour
         SceneDirector.GetInstance().Load(SceneDirector.SceneNames.MAIN_MENU_SCENE, true);
     }
 
+    public void Retry()
+    {
+        SceneDirector.GetInstance().Load(SceneDirector.SceneNames.CHAPTER1_SCENE, true);
+    }
+
 
     [SerializeField] GameObject pauseUI;
     [SerializeField] GameObject deathUI;
@@ -72,6 +87,4 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] GameObject tunnel;
 
-    private static LevelManager instance;
-    public static LevelManager Instance => instance;
 }

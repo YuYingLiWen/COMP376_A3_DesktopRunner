@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62e21871a31d7d45bab9f782112ebd9, type: 3}
   m_Name: Easy
   m_EditorClassIdentifier: 
-  holeChance: 5
+  holeChance: 10
   obsctacleChance: 5
-  powerUpChance: 15
-  upgradeChance: 15
+  powerUpChance: 10
+  upgradeChance: 10
   bearChance: 3

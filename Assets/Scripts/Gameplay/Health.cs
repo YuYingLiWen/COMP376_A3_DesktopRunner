@@ -11,14 +11,18 @@ public class Health
     }
     public int Points => points;
     public int MaxPoints => maxHealth;
-    public void TakeDamage(int damage) => points -= damage;
+    public void TakeDamage(int damage)
+    {
+        if(points - damage < 0) points = 0;
+        points -= damage;
+    }
     public float GetHealthPercent() => (float)points / (float)maxHealth;
     public bool IsAlive() => points > 0;
     public void Reset() => points = maxHealth;
     public void AddHealth(int points)
     {
         if (this.points + points > maxHealth) return;
-
         this.points += points;
     }
+    public void InstantDeath() => points = 0;
 }
