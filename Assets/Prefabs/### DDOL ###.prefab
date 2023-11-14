@@ -62,12 +62,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc53d355b4a4dc45acc58c2032465a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneDirector: {fileID: 0}
-  audioManager: {fileID: 0}
-  easy: {fileID: 0}
-  medium: {fileID: 0}
-  hard: {fileID: 0}
-  debug: {fileID: 0}
+  easy: {fileID: 11400000, guid: b6459aebfce45e44e9bfc1fff92a1fb2, type: 2}
+  medium: {fileID: 11400000, guid: 36f71aee15fff9a4d8957d0fc6591e25, type: 2}
+  hard: {fileID: 11400000, guid: 86d3c3908a43f744e89aeb2f836a8463, type: 2}
+  debug: {fileID: 11400000, guid: ac6e2afb265b1ac40824412d33c358b1, type: 2}
 --- !u!114 &2842934647205204606
 MonoBehaviour:
   m_ObjectHideFlags: 0

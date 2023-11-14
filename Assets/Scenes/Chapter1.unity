@@ -8430,7 +8430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1414385485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10398,6 +10398,7 @@ GameObject:
   - component: {fileID: 1799057916}
   - component: {fileID: 1799057917}
   - component: {fileID: 1799057918}
+  - component: {fileID: 1799057919}
   m_Layer: 0
   m_Name: '### Scripts ###'
   m_TagString: Untagged
@@ -10464,6 +10465,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 0
   tunnel: {fileID: 2325392701664831951, guid: b9fc5ce80af42624489624dd78ca2c5b, type: 3}
+--- !u!114 &1799057919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799057913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b226d147208434689f6429079475d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toPool: {fileID: 102765300823765402, guid: 9ea70ec202e3e9c4f8e657179a175c3b, type: 3}
+  initialAmount: 50
+  collectionCheck: 0
 --- !u!1 &1805719957
 GameObject:
   m_ObjectHideFlags: 0

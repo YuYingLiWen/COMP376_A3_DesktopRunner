@@ -12,12 +12,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
-        {
-            //Instand Death
-            Debug.Log("Instant Death");
-        }
-        else if (other.CompareTag("Fly"))
+        if (other.CompareTag("Fly"))
         {
             canFly = true;
             if (fly.IsActive) fly.ResetTimer();
@@ -70,6 +65,11 @@ public class Player : MonoBehaviour
             {
                 TakeDamage(1);
             }
+        }
+        else if (collision.collider.CompareTag("Enemy"))
+        {
+            //Instand Death
+            Debug.Log("Instant Death");
         }
     }
 

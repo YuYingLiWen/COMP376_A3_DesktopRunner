@@ -71,6 +71,8 @@ public sealed class Gun : MonoBehaviour
             if (hit.collider.CompareTag("Enemy"))
             {
                 hit.transform.GetComponent<Ghost>().TakeDamage(1);
+                var blood = BloodPooler.Instance.Pool.Get();
+                blood.transform.position = hit.point;
             }
         }
         else
