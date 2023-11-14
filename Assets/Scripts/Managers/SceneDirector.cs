@@ -16,15 +16,12 @@ public class SceneDirector : MonoBehaviour
     private AsyncOperation asyncOps = null;
     private Coroutine loadRoutine = null;
 
-    public Action<string> OnSceneActivated;
+    public Action<GameManager.GameState> OnSceneActivated;
 
     public class SceneNames
     {
         public const string MAIN_MENU_SCENE = "MainMenuScene";
         public const string CHAPTER1_SCENE = "Chapter1";
-        public const string CHAPTER2_SCENE = "Chapter2";
-        public const string CREDITS_SCENE = "Credits";
-
     }
 
     private void Awake()
@@ -57,7 +54,8 @@ public class SceneDirector : MonoBehaviour
             asyncOps = null;
             loadRoutine = null;
 
-            OnSceneActivated?.Invoke(sceneName);
+            if(sceneName == SceneNames.CHAPTER1_SCENE) OnSceneActivated?.Invoke(GameManager.GameState.LEVEL);
+            else if (sceneName == SceneNames.MAIN_MENU_SCENE) OnSceneActivated?.Invoke(GameManager.GameState.MAIN_MENU);
         }
     }
 

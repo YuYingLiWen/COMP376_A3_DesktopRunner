@@ -24,7 +24,10 @@ public sealed class Gun : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if (GameManager.Instance.GetGameState == GameManager.GameState.PAUSED) return;
+
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             isHolding = true;
             if(!canHold) Fire();
@@ -64,7 +67,7 @@ public sealed class Gun : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 5.0f);
         if (Physics.Raycast(ray,out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
         {
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
 
             trail.SetPositions(rifle.position, hit.point);
 

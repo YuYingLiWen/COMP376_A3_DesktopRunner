@@ -16,10 +16,14 @@ public class GameManager : MonoBehaviour
     private AudioManager audioManager = null;
 
     // Game Pause
-    private enum GameState { PLAY, PAUSED, MAIN_MENU, CHAPTER1, CREDITS };
+    public enum GameState { PAUSED, MAIN_MENU, LEVEL };
     private GameState currentGameState = GameState.MAIN_MENU;
 
+    public GameState GetGameState => currentGameState;
+
     public Action OnGamePause;
+    public Action OnGameUnpause;
+
 
     private void Awake()
     {
@@ -39,31 +43,48 @@ public class GameManager : MonoBehaviour
         sceneDirector.OnSceneActivated += HandleMainMenuSceneActivation;
     }
 
-    public void HandleLevelSceneActivation(string sceneName)
+    private void Update()
     {
-        if (!sceneName.Contains("Level")) return;
-
-        currentGameState = GameState.PLAY;
+        if (currentGameState == GameState.MAIN_MENU) return; 
+        
+        if (Input.GetKeyDown(KeyCode.Escape)) Pause();
     }
 
-    public void HandleCreditsSceneActivation()
+    private void Pause()
     {
-        currentGameState = GameState.CREDITS;
-
+        if (isPaused) // if paused
+        {
+            //Unpause
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1.0f;
+            OnGameUnpause?.Invoke();
+            currentGameState = GameState.LEVEL;
+        }
+        else // Not paused
+        {
+            //Pause
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0.0f;
+            OnGamePause?.Invoke();
+            currentGameState = GameState.PAUSED;
+        }
+        isPaused = !isPaused;
     }
 
-    public void HandleMainMenuSceneActivation(string sceneName)
+    public void HandleLevelSceneActivation(GameState state)
     {
-        if (!sceneName.Equals(SceneDirector.SceneNames.MAIN_MENU_SCENE)) return;
+        if (state != GameState.LEVEL) return;
+
+        currentGameState = GameState.LEVEL;
+    }
+
+    public void HandleMainMenuSceneActivation(GameState state)
+    {
+        if (state != GameState.MAIN_MENU) return;
 
         currentGameState = GameState.MAIN_MENU;
 
-        audioManager.Play(sceneName);
-    }
-
-    public void HandleGameOver()
-    {
-       
+        audioManager.Play(state);
     }
 
     [SerializeField] DifficultySO easy;
@@ -86,8 +107,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    bool isPaused = false;
+
+
     public void SetDifficulty(Difficulty difficulty) => this.difficulty = difficulty;
     public enum Difficulty { Easy, Hard, Medium};
     Difficulty difficulty = Difficulty.Easy;
+
+    int highscore = 0;
+    int currentScore = 0;
+
+    public int GetHighScore => highscore;
+    public int GetCurrentScore => currentScore;
+    public void SetCurrentScore(int value) { currentScore = value; }
+
 }
 

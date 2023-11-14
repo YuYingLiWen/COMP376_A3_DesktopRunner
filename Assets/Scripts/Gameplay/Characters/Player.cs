@@ -110,6 +110,9 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
+        if (GameManager.Instance.GetGameState == GameManager.GameState.PAUSED) return;
+
+
         float mouse_x = Input.GetAxis("Mouse X");
         float mouse_y = Input.GetAxis("Mouse Y");
 

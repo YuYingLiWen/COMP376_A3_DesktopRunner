@@ -30,20 +30,28 @@ public class LevelManager : MonoBehaviour
     private void OnEnable()
     {
         if (debugMode) return;
-        OnGameOver += gameManager.HandleGameOver;
+
+        GameManager.Instance.OnGamePause += HandlePause;
+        GameManager.Instance.OnGameUnpause += HandleUnpause;
     }
 
-    private void OnDisable()
+
+    void HandlePause()
     {
-        if (debugMode) return;
-
-        OnGameOver -= gameManager.HandleGameOver;
+        pauseUI.SetActive(true);
     }
+
+    void HandleUnpause()
+    {
+        pauseUI.SetActive(false);
+    }
+
 
     public void GameOver()
     {
         OnGameOver?.Invoke();
-        SceneDirector.GetInstance().Load(SceneDirector.SceneNames.CREDITS_SCENE, true);
+
+        deathUI.SetActive(true);
     }
 
     public void SpawnNextTunnel(Vector3 anchor)
@@ -51,6 +59,16 @@ public class LevelManager : MonoBehaviour
         var t = Instantiate(tunnel);
         t.transform.position = anchor;
     }
+
+    public void LoadMainMenu()
+    {
+        SceneDirector.GetInstance().Load(SceneDirector.SceneNames.MAIN_MENU_SCENE, true);
+    }
+
+
+    [SerializeField] GameObject pauseUI;
+    [SerializeField] GameObject deathUI;
+
 
     [SerializeField] GameObject tunnel;
 

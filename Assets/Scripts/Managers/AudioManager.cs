@@ -34,21 +34,21 @@ public class AudioManager : MonoBehaviour
         Stop();
     }
 
-    private void ChangeTrack(string sceneName)
+    private void ChangeTrack(GameManager.GameState state)
     {
         Stop();
 
-        switch(sceneName)
+        switch(state)
         {
-            case SceneDirector.SceneNames.MAIN_MENU_SCENE:
+            case GameManager.GameState.MAIN_MENU:
                 source.clip = mainMenuMusic;
                 break;
         }
     }
 
-    public void Play(string sceneName)
+    public void Play(GameManager.GameState state)
     {
-        ChangeTrack(sceneName);
+        ChangeTrack(state);
 
         source.Play();
     }
