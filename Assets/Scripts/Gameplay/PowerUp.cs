@@ -3,7 +3,7 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     static Transform player;
-
+    [SerializeField] int score = 25;
     float seed ;
 
     private void Awake()
@@ -18,6 +18,7 @@ public class PowerUp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             gameObject.SetActive(false);
+            player.GetComponent<Player>().AddPoints(score);
         }
     }
 

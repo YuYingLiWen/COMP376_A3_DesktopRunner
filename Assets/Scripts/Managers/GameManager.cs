@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
     public Action OnGamePause;
     public Action OnGameUnpause;
 
-
     private void Awake()
     {
         if(!instance) instance = this;
@@ -35,6 +34,8 @@ public class GameManager : MonoBehaviour
 
         audioManager = AudioManager.Instance;
         if (!audioManager) Debug.LogError("Missing Audio Manager", gameObject);
+
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
     }
 
     private void OnEnable()
@@ -131,12 +132,20 @@ public class GameManager : MonoBehaviour
     public enum Difficulty { Easy, Hard, Medium};
     Difficulty difficulty = Difficulty.Easy;
 
-    int highscore = 0;
+    int highScore = 0;
     int currentScore = 0;
 
-    public int GetHighScore => highscore;
+    public int GetHighScore => highScore;
     public int GetCurrentScore => currentScore;
-    public void SetCurrentScore(int value) { currentScore = value; }
 
+    public void SetHighScore(int score)
+    {
+        highScore = Mathf.Max(highScore, score);
+    }
+
+    public void SetCurrentScore(int score)
+    {
+        currentScore = score;
+    }
 }
 

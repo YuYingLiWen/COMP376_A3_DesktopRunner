@@ -39,7 +39,11 @@ public sealed class Ghost : MonoBehaviour
     {
         health.TakeDamage(damage);
 
-        if (!health.IsAlive()) GhostPooler.Instance.Pool.Release(this);// Back to pooler
+        if (!health.IsAlive())
+        {
+            GhostPooler.Instance.Pool.Release(this);// Back to pooler
+            player.GetComponent<Player>().AddPoints(150);
+        }
     }
 
     IEnumerator FlipRoutine()

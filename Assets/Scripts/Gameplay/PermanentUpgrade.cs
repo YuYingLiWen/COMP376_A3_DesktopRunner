@@ -4,7 +4,7 @@ using UnityEngine;
 public class PermanentUpgrade : MonoBehaviour
 {
     [SerializeField] float speed = 5.0f;
-
+    [SerializeField] int score = 50;
     float seed;
 
     [SerializeField] Vector3 rotation;
@@ -22,6 +22,10 @@ public class PermanentUpgrade : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player")) gameObject.SetActive(false);
+        if (other.CompareTag("Player"))
+        {
+            gameObject.SetActive(false);
+            other.GetComponent<Player>().AddPoints(score);
+        }
     }
 }

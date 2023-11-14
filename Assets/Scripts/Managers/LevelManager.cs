@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -22,9 +23,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-
         gameManager.Unpause();
-
     }
 
     private void OnEnable()
@@ -62,6 +61,8 @@ public class LevelManager : MonoBehaviour
         deathUI.SetActive(true);
         Time.timeScale = 0.0f;
         Cursor.lockState = CursorLockMode.None;
+
+        deathUIScoreText.text = $"HIGHSCORE: {GameManager.Instance.GetHighScore}\r\nCURRENT: {GameManager.Instance.GetCurrentScore}";
     }
 
     public void SpawnNextTunnel(Vector3 anchor)
@@ -84,7 +85,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject pauseUI;
     [SerializeField] GameObject deathUI;
 
+    [SerializeField] TMP_Text deathUIScoreText;
 
     [SerializeField] GameObject tunnel;
-
 }

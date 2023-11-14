@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Player : MonoBehaviour
 {
@@ -72,9 +73,7 @@ public class Player : MonoBehaviour
         {
             //Instand Death
             Debug.Log("Instant Death");
-            health.InstantDeath();
-            UpdateHealthUI();
-            levelManager.GameOver();
+            InstantDeath();
         }
     }
 
@@ -114,6 +113,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+
+        startPosition = transform.position;
+        AddPoints(0);// Setup scores;
     }
     private void Update()
     {
@@ -153,6 +155,18 @@ public class Player : MonoBehaviour
 
         if(!speedBoost) rb.MovePosition(rb.position + direction.normalized * (moveSpeed + speedUpgrade) * Time.deltaTime);
         else rb.MovePosition(rb.position + direction.normalized * (moveSpeed + speedUpgrade + 1.0f) * Time.deltaTime);
+
+
+
+        if (transform.position.y < -20.0f) InstantDeath();
+    }
+
+    void InstantDeath()
+    {
+        health.InstantDeath();
+        UpdateHealthUI();
+        SendScoreToGM();
+        levelManager.GameOver();
     }
 
     public void TakeDamage(int damage)
@@ -160,7 +174,18 @@ public class Player : MonoBehaviour
         health.TakeDamage(damage);
         UpdateHealthUI();
 
-        if (!health.IsAlive()) levelManager.GameOver();
+        if (!health.IsAlive())
+        {
+            SendScoreToGM();
+            levelManager.GameOver();
+        }
+    }
+
+    void SendScoreToGM()
+    {
+        score += (int)(transform.position - startPosition).magnitude * 15;
+        GameManager.Instance.SetCurrentScore(score);
+        GameManager.Instance.SetHighScore(score);
     }
 
     public void SpawnBlood(Vector3 at, Vector3 up)
@@ -230,7 +255,25 @@ public class Player : MonoBehaviour
         hpBar.fillAmount = health.GetHealthPercent();
     }
 
+    /// <summary>
+    /// Add additional points to score.
+    /// </summary>
+    public void AddPoints(int points)
+    {
+        score += points;
+
+        scoreUI.text = $"HIGHSCORE: {GameManager.Instance.GetHighScore}\r\nCURRENT: {score}";
+    }
+
+
+
+    Vector3 startPosition;
+
     bool canJump = true;
+
+
+    int score = 0;
+    [SerializeField] TMP_Text scoreUI;
 
     [SerializeField] int healthPoint = 10;
     [SerializeField] TMP_Text hpText;

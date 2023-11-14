@@ -7,11 +7,11 @@ public sealed class ColorLerp : MonoBehaviour
     [SerializeField] Color startColor = Color.red;
     [SerializeField] Color endColor = Color.blue;
     [SerializeField] float duration = 2f;
-    TextMeshProUGUI target;
+    TMP_Text target;
 
     private void Start()
     {
-        target = GetComponent<TextMeshProUGUI>();
+        target = GetComponent<TMP_Text>();
 
         StartCoroutine(LerpColor());
     }
