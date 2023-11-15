@@ -7,7 +7,6 @@ public sealed class Gun : MonoBehaviour
 
     [SerializeField] Reload reload;
 
-    [SerializeField] AudioSource fireSFX;
     [SerializeField] ParticleSystem fireVFX;
 
     [SerializeField] Transform rifle;
@@ -17,7 +16,7 @@ public sealed class Gun : MonoBehaviour
     private void Awake()
     {
         control = GetComponent<Animator>();
-        fireSFX = GetComponent<AudioSource>();
+        audioS = GetComponent<AudioSource>();
 
         cam = Camera.main.transform;
     }
@@ -54,8 +53,9 @@ public sealed class Gun : MonoBehaviour
         if (!reload.CanFire) return;
 
         control.SetTrigger("Fire");
-        fireSFX.Play();
+        audioS.Play();
         fireVFX.Play();
+        audioS.PlayOneShot(fireSFX);
         reload.OnFire();// UI image bullet;
 
         //Vector3 aimCircle = Random.insideUnitCircle * angle;
@@ -103,4 +103,7 @@ public sealed class Gun : MonoBehaviour
 
     float elapsedTime = 0.0f;
     [SerializeField] float delayPerShot = 0.1f;
+
+    AudioSource audioS;
+    [SerializeField] AudioClip fireSFX;
 }

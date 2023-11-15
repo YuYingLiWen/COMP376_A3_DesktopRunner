@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class Player : MonoBehaviour
 {
@@ -71,9 +70,10 @@ public class Player : MonoBehaviour
         }
         else if (collision.collider.CompareTag("Enemy"))
         {
-            //Instand Death
-            Debug.Log("Instant Death");
-            InstantDeath();
+            if (!hasInvincibility)
+            {
+                InstantDeath();
+            }
         }
     }
 
@@ -100,6 +100,7 @@ public class Player : MonoBehaviour
         UpdateHealthUI();
 
         levelManager = FindAnyObjectByType<LevelManager>();
+        audioS = GetComponent<AudioSource>();
     }
 
     void OnEnable()
@@ -133,12 +134,17 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if(canFly) rb.AddForce(Vector3.up * 5.0f, ForceMode.Impulse);
+            if(canFly)
+            {
+                rb.AddForce(Vector3.up * 5.0f, ForceMode.Impulse);
+                audioS.PlayOneShot(jumpSFX[Random.Range(0, jumpSFX.Length)]);
+            }
             else
             {
                 if(canJump)
                 {
                     canJump = false;
+                    audioS.PlayOneShot(jumpSFX[Random.Range(0, jumpSFX.Length)]);
                     rb.AddForce(Vector3.up * 5.0f, ForceMode.Impulse);
                 }
             }
@@ -173,6 +179,8 @@ public class Player : MonoBehaviour
     {
         health.TakeDamage(damage);
         UpdateHealthUI();
+
+        audioS.PlayOneShot(onDamagedSFX[Random.Range(0, onDamagedSFX.Length)]);
 
         if (!health.IsAlive())
         {
@@ -300,4 +308,8 @@ public class Player : MonoBehaviour
     int ammoUpgrade = 0;
 
     [SerializeField] TMP_Text upgradeText;
+
+    AudioSource audioS;
+    [SerializeField] AudioClip[] jumpSFX;
+    [SerializeField] AudioClip[] onDamagedSFX;
 }

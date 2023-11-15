@@ -1,4 +1,4 @@
-
+using System.Collections;
 using UnityEngine;
 
 public class PermanentUpgrade : MonoBehaviour
@@ -8,6 +8,11 @@ public class PermanentUpgrade : MonoBehaviour
     float seed;
 
     [SerializeField] Vector3 rotation;
+
+    private void Awake()
+    {
+        audioS = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -24,8 +29,20 @@ public class PermanentUpgrade : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            gameObject.SetActive(false);
+            audioS.PlayOneShot(gatherSFX);
             other.GetComponent<Player>().AddPoints(score);
+
+            StartCoroutine(DisableRoutine());
+
         }
     }
+
+    IEnumerator DisableRoutine()
+    {
+        yield return new WaitForSeconds(gatherSFX.length);
+        gameObject.SetActive(false);
+    }
+
+    AudioSource audioS;
+    [SerializeField] AudioClip gatherSFX;
 }

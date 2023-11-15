@@ -30,6 +30,11 @@ public sealed class Reload : MonoBehaviour
         if(currentBullet == 0) canFire = false;
     }
 
+    private void Awake()
+    {
+        audioS = GetComponent<AudioSource>();   
+    }
+
     private void OnEnable()
     {
         Activate(normalCount);
@@ -43,6 +48,12 @@ public sealed class Reload : MonoBehaviour
     private void Reloading()
     {
         if (canFire) return; // If can fire then don't need reload.
+
+        if (!played)
+        {
+            played = true;
+            audioS.PlayOneShot(reloadSFX);
+        }
 
         if (elapsedReloadTime >= ReloadTime)
         {
@@ -62,6 +73,8 @@ public sealed class Reload : MonoBehaviour
 
     void OnReloaded()
     {
+        audioS.PlayOneShot(reloadedSFX);
+        played = false;
         canFire = true;
         elapsedReloadTime = 0.0f;
 
@@ -94,4 +107,11 @@ public sealed class Reload : MonoBehaviour
 
     private bool hasUpgrade = false;
     private bool hasInfAmmo = false;
+
+
+    AudioSource audioS;
+
+    [SerializeField] AudioClip reloadSFX;
+    [SerializeField] AudioClip reloadedSFX;
+    bool played = false;
 }

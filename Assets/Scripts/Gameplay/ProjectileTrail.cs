@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class ProjectileTrail : MonoBehaviour
 {
-
-    [SerializeField] LineRenderer line;
+    LineRenderer line;
 
     const float outOfView = 1000.0f;
 

@@ -11,7 +11,7 @@ public sealed class Ghost : MonoBehaviour
         if(!player)
             player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        rb = GetComponent<Rigidbody>();
+        audioS = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -38,6 +38,7 @@ public sealed class Ghost : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health.TakeDamage(damage);
+        audioS.PlayOneShot(hitSFX[Random.Range(0,hitSFX.Length)]);
 
         if (!health.IsAlive())
         {
@@ -58,5 +59,7 @@ public sealed class Ghost : MonoBehaviour
     WaitForSeconds waitForFlip = new WaitForSeconds(0.5f);
     private static Transform player = null;
     private static float speed = 1.0f;
-    Rigidbody rb;
+
+    AudioSource audioS;
+    [SerializeField] AudioClip[] hitSFX;
 }

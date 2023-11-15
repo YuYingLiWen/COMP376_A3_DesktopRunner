@@ -1,4 +1,8 @@
+
+using System.Collections;
+
 using UnityEngine;
+
 
 public class PowerUp : MonoBehaviour
 {
@@ -11,17 +15,20 @@ public class PowerUp : MonoBehaviour
         if (!player) player = GameObject.FindGameObjectWithTag("Player").transform;
 
         seed = Random.Range(0.0f, 1.0f);
+
+        audioS = GetComponent<AudioSource>();   
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            gameObject.SetActive(false);
             player.GetComponent<Player>().AddPoints(score);
+            audioS.PlayOneShot(gatherSFX);
+
+            StartCoroutine(DisableRoutine());
         }
     }
-
 
     private void Update()
     {
@@ -31,4 +38,13 @@ public class PowerUp : MonoBehaviour
 
         transform.LookAt(player,Vector3.up);
     }
+
+    IEnumerator DisableRoutine()
+    {
+        yield return new WaitForSeconds(gatherSFX.length);
+        gameObject.SetActive(false);
+    }
+
+    AudioSource audioS;
+    [SerializeField] AudioClip gatherSFX;
 }

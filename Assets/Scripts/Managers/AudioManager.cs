@@ -23,9 +23,8 @@ public class AudioManager : MonoBehaviour
         source = GetComponent<AudioSource>();
         mixer = Resources.Load("AudioMixer") as AudioMixer;
 
-        print(mixer);
         // Assign Master to Audio Source
-        var group = mixer.FindMatchingGroups("Master");
+        var group = mixer.FindMatchingGroups("BGM");
         source.outputAudioMixerGroup = group[0];
     }
 
