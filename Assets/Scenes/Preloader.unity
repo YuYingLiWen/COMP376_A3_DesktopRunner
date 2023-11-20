@@ -189,6 +189,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '### DDOL ###'
       objectReference: {fileID: 0}
+    - target: {fileID: 2931706684682511931, guid: c7c27192836465f4080764d7d5340663, type: 3}
+      propertyPath: mainMenuMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: c6e56f8992a2a5748b12c5a35f3ad01e, type: 3}
     - target: {fileID: 8860890113816311360, guid: c7c27192836465f4080764d7d5340663, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

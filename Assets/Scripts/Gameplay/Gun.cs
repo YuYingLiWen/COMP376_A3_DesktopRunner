@@ -67,7 +67,7 @@ public sealed class Gun : MonoBehaviour
 
 
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 5.0f);
-        if (Physics.Raycast(ray,out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Enemies","Level"), QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(ray,out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Enemies","Level","Spikes","Default"), QueryTriggerInteraction.Ignore))
         {
 
             trail.SetPositions(rifle.position, hit.point);
