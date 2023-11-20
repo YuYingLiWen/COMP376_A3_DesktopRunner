@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
 
     public DifficultySO GetDifficultyData()
     {
+        Debug.Log("Difficulty: " + difficulty.ToString());
         switch (this.difficulty)
         {
             case Difficulty.Easy:
@@ -128,7 +129,11 @@ public class GameManager : MonoBehaviour
     bool isPaused = false;
     bool playerIsDead = false;
 
-    public void SetDifficulty(Difficulty difficulty) => this.difficulty = difficulty;
+    public void SetDifficulty(Difficulty difficulty)
+    {
+        this.difficulty = difficulty;
+    }
+
     public enum Difficulty { Easy, Hard, Medium};
     Difficulty difficulty = Difficulty.Easy;
 

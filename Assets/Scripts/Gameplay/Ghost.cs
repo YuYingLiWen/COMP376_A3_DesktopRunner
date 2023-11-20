@@ -6,12 +6,15 @@ public sealed class Ghost : MonoBehaviour
     Health health;
     [SerializeField] SpriteRenderer rend;
 
+    Rigidbody rigid;
+
     private void Awake()
     {
         if(!player)
             player = GameObject.FindGameObjectWithTag("Player").transform;
 
         audioS = GetComponent<AudioSource>();
+        rigid = GetComponent<Rigidbody>();
     }
 
     private void OnEnable()
@@ -26,13 +29,17 @@ public sealed class Ghost : MonoBehaviour
 
     private void Update()
     {
-
         Vector3 dir = player.position - transform.position;
 
         transform.LookAt(player);
 
-        //rb.AddForce(dir.normalized * speed,ForceMode.Force);
-        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
+        rigid.MovePosition(rigid.position + dir.normalized * speed * Time.deltaTime);
+
+        if (transform.position.y < -500.0f) // Falls off game world
+        {
+            health.InstantDeath();
+            GhostPooler.Instance.Pool.Release(this);
+        }
     }
 
     public void TakeDamage(int damage)

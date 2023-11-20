@@ -51,4 +51,9 @@ public sealed class Floor : MonoBehaviour
             upgrade.transform.position = transform.position + Vector3.up ;
         }
     }
+
+    private void OnDisable()
+    {
+        so = null;
+    }
 }

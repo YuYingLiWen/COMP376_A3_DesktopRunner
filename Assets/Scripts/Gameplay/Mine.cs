@@ -7,6 +7,8 @@ public class Mine : MonoBehaviour
     [SerializeField] AudioClip clip;
     AudioSource source;
 
+    [SerializeField] GameObject toDisable;
+
     private void Awake()
     {
         source = GetComponent<AudioSource>();
@@ -17,10 +19,12 @@ public class Mine : MonoBehaviour
         Debug.Log(collision.gameObject.name);
         if(collision.collider.CompareTag("Player"))
         {
+            collision.collider.GetComponent<Player>().TakeDamage(3);
+
             collision.rigidbody.AddExplosionForce(1000.0f, transform.position, 10.0f);
             ps.Play();
             source.PlayOneShot(clip);
-            GetComponentInChildren<Renderer>().enabled = false;
+            toDisable.SetActive(false);
             StartCoroutine(Routine());
         }
     }

@@ -5069,6 +5069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ps: {fileID: 4722187130575110037}
   clip: {fileID: 8300000, guid: 5771b76f19393024f921cb1e02e12e5d, type: 3}
+  toDisable: {fileID: 2958232324055220025}
 --- !u!82 &649067401098882177
 AudioSource:
   m_ObjectHideFlags: 0
