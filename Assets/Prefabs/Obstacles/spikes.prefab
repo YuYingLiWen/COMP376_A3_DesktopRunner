@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6351957316870432335}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spikes
   m_TagString: Spike
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 6922694299997118451}
   - component: {fileID: 2044278694041050366}
   - component: {fileID: 5086594388109468712}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spikes
   m_TagString: Spike
   m_Icon: {fileID: 0}

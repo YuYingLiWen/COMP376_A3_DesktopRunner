@@ -52,7 +52,7 @@ public sealed class Floor : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         so = null;
     }

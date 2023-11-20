@@ -120,6 +120,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public float GetMaxLevelTime()
+    {
+        return GetDifficultyData().LevelTime;
+    }
+
     public void PlayerIsDead()
     {
         playerIsDead = true;

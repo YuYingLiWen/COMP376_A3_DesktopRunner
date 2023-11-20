@@ -8,6 +8,8 @@ public sealed class Ghost : MonoBehaviour
 
     Rigidbody rigid;
 
+    LevelManager levelManager;
+
     private void Awake()
     {
         if(!player)
@@ -15,6 +17,8 @@ public sealed class Ghost : MonoBehaviour
 
         audioS = GetComponent<AudioSource>();
         rigid = GetComponent<Rigidbody>();
+
+        if(!levelManager) levelManager = FindAnyObjectByType<LevelManager>();
     }
 
     private void OnEnable()
@@ -33,7 +37,14 @@ public sealed class Ghost : MonoBehaviour
 
         transform.LookAt(player);
 
-        rigid.MovePosition(rigid.position + dir.normalized * speed * Time.deltaTime);
+        if(!levelManager.LevelTimePassed())
+        {
+            rigid.MovePosition(rigid.position + dir.normalized * speed * Time.deltaTime);
+        }
+        else
+        {
+            rigid.MovePosition(rigid.position + dir.normalized * speed * 4.0f * Time.deltaTime);
+        }
 
         if (transform.position.y < -500.0f) // Falls off game world
         {

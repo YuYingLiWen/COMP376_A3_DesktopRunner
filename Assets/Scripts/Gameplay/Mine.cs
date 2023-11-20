@@ -21,7 +21,7 @@ public class Mine : MonoBehaviour
         {
             collision.collider.GetComponent<Player>().TakeDamage(3);
 
-            collision.rigidbody.AddExplosionForce(1000.0f, transform.position, 10.0f);
+            collision.rigidbody.AddExplosionForce(1000.0f, transform.position, 10.0f,500.0f);
             ps.Play();
             source.PlayOneShot(clip);
             toDisable.SetActive(false);

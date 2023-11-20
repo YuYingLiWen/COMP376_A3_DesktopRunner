@@ -4,6 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Difficulty", menuName = "ScriptableObjects/Difficulty", order = 1)]
 public class DifficultySO : ScriptableObject
 {
+
+    [SerializeField] float levelTime;
     [SerializeField] float holeChance;
     [SerializeField] float obsctacleChance;
     [SerializeField] float powerUpChance;
@@ -15,4 +17,7 @@ public class DifficultySO : ScriptableObject
     public float PowerUpChance { get => powerUpChance; }
     public float UpgradeChance { get => upgradeChance; }
     public float BearChance { get => bearChance; }
+
+    // Time delay (in seconds) before the level becomes nearly impossible.
+    public float LevelTime { get => levelTime; }
 }

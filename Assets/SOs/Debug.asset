@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62e21871a31d7d45bab9f782112ebd9, type: 3}
   m_Name: Debug
   m_EditorClassIdentifier: 
+  levelTime: 600
   holeChance: 100
   obsctacleChance: 100
   powerUpChance: 100

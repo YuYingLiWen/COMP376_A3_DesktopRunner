@@ -150,7 +150,6 @@ public class Player : MonoBehaviour
             }
         }
             
-
         float key_x = Input.GetAxis("Horizontal");
         float key_y = Input.GetAxis("Vertical");
 

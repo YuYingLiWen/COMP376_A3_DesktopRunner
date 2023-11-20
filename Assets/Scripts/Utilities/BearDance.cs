@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class BearDance : MonoBehaviour
 {
     RawImage bear;
+    [SerializeField] bool inverse;
 
     private void Awake()
     {
@@ -22,17 +23,23 @@ public class BearDance : MonoBehaviour
     {
         float x = 0.0f;
 
+        float initX = bear.uvRect.x;
+        float initY = bear.uvRect.y;
+
         while (true)
         {
             bear.uvRect = new Rect
             {
-                x = -x,
-                y = x,
+                x = initX + -x,
+                y = initY + x,
                 width = 10,
                 height = 2
             };
 
-            x += Time.deltaTime;
+            if(!inverse)
+                x += Time.deltaTime;
+            else
+                x -= Time.deltaTime;
 
             yield return null;
         }

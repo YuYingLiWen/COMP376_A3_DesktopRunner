@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     private GameManager gameManager;
 
     public bool debugMode = false;
+    float timeElapsed = 0.0f;
 
     private void Awake()
     {
@@ -35,6 +36,15 @@ public class LevelManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        timeElapsed += Time.deltaTime;
+        if (timeElapsed > GameManager.Instance.GetMaxLevelTime())
+        {
+            levelTimeEnded = true;
+        }
+    }
+
     private void OnDisable()
     {
         if (debugMode) return;
@@ -54,6 +64,10 @@ public class LevelManager : MonoBehaviour
         pauseUI.SetActive(false);
     }
 
+    public bool LevelTimePassed()
+    {
+        return levelTimeEnded;
+    }
 
     public void GameOver()
     {
@@ -88,4 +102,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] TMP_Text deathUIScoreText;
 
     [SerializeField] GameObject[] tunnels;
+
+
+    bool levelTimeEnded = false;
 }
