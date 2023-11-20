@@ -67,7 +67,7 @@ public sealed class Gun : MonoBehaviour
 
 
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 5.0f);
-        if (Physics.Raycast(ray,out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(ray,out RaycastHit hit, float.MaxValue, LayerMask.GetMask("Default","Level"), QueryTriggerInteraction.Ignore))
         {
             //Debug.Log(hit.collider.name);
 
@@ -76,6 +76,12 @@ public sealed class Gun : MonoBehaviour
             if (hit.collider.CompareTag("Enemy"))
             {
                 hit.transform.GetComponent<Ghost>().TakeDamage(1);
+                //var blood = BloodPooler.Instance.Pool.Get();
+                //blood.transform.position = hit.point;
+            }
+            else if (hit.collider.CompareTag("EnemyHead"))
+            {
+                hit.transform.GetComponent<Ghost>().TakeDamage(5);
                 var blood = BloodPooler.Instance.Pool.Get();
                 blood.transform.position = hit.point;
             }

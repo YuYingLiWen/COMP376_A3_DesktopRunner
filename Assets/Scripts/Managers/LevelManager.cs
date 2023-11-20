@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnNextTunnel(Vector3 anchor)
     {
-        var t = Instantiate(tunnel);
+        var t = Instantiate(tunnels[Random.Range(0,tunnels.Length)]);
         t.transform.position = anchor;
     }
 
@@ -87,5 +87,5 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] TMP_Text deathUIScoreText;
 
-    [SerializeField] GameObject tunnel;
+    [SerializeField] GameObject[] tunnels;
 }

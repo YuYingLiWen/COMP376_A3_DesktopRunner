@@ -164,7 +164,7 @@ public class Player : MonoBehaviour
 
 
 
-        if (transform.position.y < -20.0f) InstantDeath();
+        if (transform.position.y < -50.0f) InstantDeath();
     }
 
     void InstantDeath()

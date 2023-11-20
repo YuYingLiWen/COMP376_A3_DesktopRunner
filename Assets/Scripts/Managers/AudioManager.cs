@@ -6,7 +6,6 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioClip mainMenuMusic;
-    [SerializeField] private AudioClip volumeMusic;
 
     private AudioSource source;
 

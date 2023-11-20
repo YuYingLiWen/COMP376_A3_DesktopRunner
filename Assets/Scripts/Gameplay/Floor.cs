@@ -21,18 +21,21 @@ public sealed class Floor : MonoBehaviour
         if (so == null) so = GameManager.Instance.GetDifficultyData();
 
 
+        GameObject obstacle;
 
         if (Random.Range(0.0f, 100.0f) < so.ObsctacleChance)
         {
-            var obstacle = Instantiate(staticObstacles[Random.Range(0, staticObstacles.Length)]);
+            obstacle = Instantiate(staticObstacles[Random.Range(0, staticObstacles.Length)]);
             obstacle.transform.parent = transform;
-            obstacle.transform.position = transform.position ;
+            obstacle.transform.position = transform.position;
+            obstacle.transform.rotation = transform.rotation;
         }
         else if (Random.Range(0.0f, 100.0f) < so.BearChance)
         {
-            var obstacle = Instantiate(bear);
+            obstacle = Instantiate(bear);
             obstacle.transform.parent = transform;
             obstacle.transform.position = transform.position;
+            obstacle.transform.rotation = transform.rotation;
         }
 
         if (Random.Range(0.0f, 100.0f) < so.PowerUpChance)

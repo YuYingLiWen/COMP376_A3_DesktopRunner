@@ -16,4 +16,4 @@ MonoBehaviour:
   obsctacleChance: 5
   powerUpChance: 10
   upgradeChance: 10
-  bearChance: 3
+  bearChance: 1

@@ -58,7 +58,7 @@ public sealed class Ghost : MonoBehaviour
 
     WaitForSeconds waitForFlip = new WaitForSeconds(0.5f);
     private static Transform player = null;
-    private static float speed = 1.0f;
+    private static float speed = 1.5f;
 
     AudioSource audioS;
     [SerializeField] AudioClip[] hitSFX;

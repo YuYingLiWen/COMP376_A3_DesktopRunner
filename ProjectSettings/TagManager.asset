@@ -17,6 +17,8 @@ TagManager:
   - Health
   - Pill
   - Floor
+  - EnemyHead
+  - Mine
   layers:
   - Default
   - TransparentFX
@@ -26,7 +28,7 @@ TagManager:
   - UI
   - 
   - Level
-  - Despawn
+  - 
   - Enemies
   - 
   - 
